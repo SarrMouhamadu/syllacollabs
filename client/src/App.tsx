@@ -97,55 +97,34 @@ export function App() {
         {publicTab === 'track' && <TrackPage initialCode={trackCode} />}
       </main>
 
-      {/* Footer Institutionnel Sylla */}
+      {/* Footer Institutionnel Sylla Compact */}
       <footer
         style={{
           background: 'var(--sylla-white)',
           borderTop: '1px solid var(--sylla-gray-200)',
-          padding: '2rem 1.25rem',
-          marginTop: 'auto',
+          padding: '0.45rem 1rem',
+          fontSize: '0.78rem',
+          flexShrink: 0,
         }}
       >
         <div
           style={{
-            maxWidth: 1040,
+            maxWidth: 1140,
             margin: '0 auto',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '1.25rem',
+            gap: '0.5rem',
           }}
         >
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-              <div
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: 6,
-                  background: 'var(--sylla-blue-900)',
-                  color: 'var(--sylla-white)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 800,
-                  fontSize: '0.8rem',
-                }}
-              >
-                S
-              </div>
-              <strong style={{ color: 'var(--sylla-blue-900)', fontSize: '0.95rem' }}>
-                SYLLA COLLABORATIONS
-              </strong>
-            </div>
-            <p style={{ fontSize: '0.8rem', color: 'var(--sylla-gray-500)' }}>
-              Plateforme officielle de réception et gestion des partenariats • Écosystème Sylla
-            </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontWeight: 800, color: 'var(--sylla-blue-900)' }}>SYLLA COLLABORATIONS</span>
+            <span style={{ color: 'var(--sylla-gray-400)' }}>•</span>
+            <span style={{ color: 'var(--sylla-gray-500)' }}>Écosystème Sylla</span>
           </div>
 
-          {/* Liens de Référence officiels et accès cockpit discret */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <a
               href="https://syllavoyage.com"
               target="_blank"
@@ -154,14 +133,14 @@ export function App() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 4,
-                fontSize: '0.85rem',
                 color: 'var(--sylla-blue-700)',
                 textDecoration: 'none',
                 fontWeight: 600,
+                fontSize: '0.75rem',
               }}
             >
               <span>Sylla Voyage</span>
-              <ExternalLink size={13} />
+              <ExternalLink size={11} />
             </a>
 
             <a
@@ -172,34 +151,33 @@ export function App() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 4,
-                fontSize: '0.85rem',
                 color: 'var(--sylla-blue-700)',
                 textDecoration: 'none',
                 fontWeight: 600,
+                fontSize: '0.75rem',
               }}
             >
               <span>Sylla English Academy</span>
-              <ExternalLink size={13} />
+              <ExternalLink size={11} />
             </a>
 
             <span
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 4,
-                fontSize: '0.75rem',
+                gap: 3,
+                fontSize: '0.7rem',
                 color: 'var(--sylla-green-700)',
                 background: 'var(--sylla-green-50)',
-                padding: '0.2rem 0.6rem',
+                padding: '0.15rem 0.5rem',
                 borderRadius: 'var(--radius-full)',
                 fontWeight: 700,
               }}
             >
-              <Shield size={12} />
+              <Shield size={10} />
               <span>Dossiers Sécurisés</span>
             </span>
 
-            {/* Accès discret au Cockpit Interne pour l'équipe */}
             <button
               type="button"
               onClick={navigateToAdmin}
@@ -207,18 +185,16 @@ export function App() {
                 background: 'none',
                 border: 'none',
                 color: 'var(--sylla-gray-400)',
-                fontSize: '0.75rem',
+                fontSize: '0.72rem',
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 4,
-                padding: '0.2rem 0.4rem',
-                borderRadius: 'var(--radius-sm)',
-                transition: 'color 0.2s',
+                gap: 3,
+                padding: '0.1rem 0.3rem',
               }}
               title="Accès réservé à la direction"
             >
-              <Lock size={11} />
+              <Lock size={10} />
               <span>Portail Interne</span>
             </button>
           </div>

@@ -95,28 +95,28 @@ export const TrackPage: FC<TrackPageProps> = ({ initialCode = '' }) => {
   };
 
   return (
-    <div className="main-content">
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <h1 className="hero-title">
+    <div className="single-page-wrapper">
+      <div style={{ textAlign: 'center', marginBottom: '0.65rem' }}>
+        <h1 className="submit-title-compact">
           Suivi de votre <span className="hero-title-highlight">dossier</span>
         </h1>
-        <p className="hero-description">
-          Consultez l'avancement de votre proposition de collaboration grâce à votre code unique sans avoir besoin de créer de compte.
+        <p className="submit-desc-compact">
+          Consultez l'avancement de votre proposition en direct sans compte utilisateur.
         </p>
       </div>
 
       {/* Barre de recherche du code de suivi */}
-      <div className="card-panel" style={{ maxWidth: 540, margin: '0 auto 2rem' }}>
+      <div className="proposal-card-compact" style={{ maxWidth: 500, margin: '0 auto 0.75rem', padding: '0.65rem 0.85rem' }}>
         <form onSubmit={handleSubmit}>
-          <div className="form-group" style={{ marginBottom: '1rem' }}>
-            <label className="form-label">Votre Code de Suivi Unique</label>
+          <div className="form-group-compact" style={{ marginBottom: '0.35rem' }}>
+            <label className="form-label-compact">Votre Code de Suivi Unique</label>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="text"
-                className="form-input"
+                className="form-input form-input-compact"
                 style={{
                   fontFamily: 'monospace',
-                  fontSize: '1.1rem',
+                  fontSize: '1rem',
                   letterSpacing: '1px',
                   textTransform: 'uppercase',
                   fontWeight: 700,
@@ -128,14 +128,14 @@ export const TrackPage: FC<TrackPageProps> = ({ initialCode = '' }) => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="btn btn-primary"
-                style={{ padding: '0 1.25rem' }}
+                className="btn btn-primary btn-sm"
+                style={{ padding: '0 1rem' }}
               >
-                {isLoading ? <RefreshCw size={18} className="animate-spin" /> : <Search size={18} />}
+                {isLoading ? <RefreshCw size={16} className="animate-spin" /> : <Search size={16} />}
               </button>
             </div>
           </div>
-          <div style={{ fontSize: '0.8rem', color: 'var(--sylla-gray-500)' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--sylla-gray-500)' }}>
             Ce code vous a été remis lors de la validation de votre demande.
           </div>
         </form>
@@ -144,27 +144,28 @@ export const TrackPage: FC<TrackPageProps> = ({ initialCode = '' }) => {
       {error && (
         <div
           style={{
-            maxWidth: 540,
-            margin: '0 auto 2rem',
+            maxWidth: 500,
+            margin: '0 auto 0.75rem',
             background: 'var(--sylla-red-50)',
             border: '1px solid #fecaca',
             color: 'var(--sylla-red-500)',
-            padding: '1rem',
-            borderRadius: 'var(--radius-md)',
+            padding: '0.5rem 0.75rem',
+            borderRadius: 'var(--radius-sm)',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.75rem',
+            gap: '0.5rem',
+            fontSize: '0.8rem',
             fontWeight: 600,
           }}
         >
-          <AlertCircle size={20} style={{ flexShrink: 0 }} />
+          <AlertCircle size={16} style={{ flexShrink: 0 }} />
           <span>{error}</span>
         </div>
       )}
 
       {/* Détails du dossier trouvé */}
       {collaboration && (
-        <div className="card-panel" style={{ maxWidth: 720, margin: '0 auto' }}>
+        <div className="proposal-card-compact" style={{ maxWidth: 660, margin: '0 auto', padding: '1rem' }}>
           {/* En-tête du dossier */}
           <div
             style={{
