@@ -14,7 +14,7 @@ export const Header: FC<HeaderProps> = ({ currentTab, setCurrentTab }) => {
         <div className="brand-wrapper" onClick={() => setCurrentTab('submit')}>
           <div className="brand-logo-icon">S</div>
           <div className="brand-info">
-            <span className="brand-title">SYLLA COLLABORATIONS</span>
+            <span className="brand-title">Sylla Collaborations</span>
             <span className="brand-subtitle">Écosystème Sylla</span>
           </div>
         </div>

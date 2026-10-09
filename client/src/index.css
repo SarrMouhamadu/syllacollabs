@@ -1,7 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Palette Sylla : Bleu, Blanc, Vert */
+  /* ========================================================
+     DESIGN TOKENS - SYLLA REDESIGN
+     ======================================================== */
+  --bg: #eef5f1;
+  --bg-secondary: #dcebe3;
+  --card-bg: #ffffff;
+  --text: #0d2a24;
+  --text-muted: #4a6259;
+  --border: #cfe0d7;
+
+  --green-dark: #0f3d33;
+  --green-main: #1f7a5c;
+  --green-light: #3fb98a;
+  --yellow-accent: #f2b84b;
+  --error: #b3261e;
+
+  --font-title: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+  --font-body: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+
+  /* Palette Sylla existante pour compatibilité */
   --sylla-blue-950: #051324;
   --sylla-blue-900: #0a1f38;
   --sylla-blue-800: #0d2c4f;
@@ -71,9 +90,12 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: var(--sylla-gray-50);
-  color: var(--sylla-gray-800);
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  background-image: radial-gradient(circle 800px at top right, rgba(63, 185, 138, 0.22) 0%, transparent 70%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -82,7 +104,7 @@ body {
   width: 100%;
 }
 
-/* App Wrapper avec orbes d'ambiance d'arrière-plan */
+/* App Wrapper */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -90,76 +112,25 @@ body {
   width: 100%;
   position: relative;
   overflow-x: hidden;
+  background: transparent;
 }
 
-/* Orbes d'ambiance douces flottantes */
-.ambient-glow-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 520px;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-
-.ambient-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.45;
-  will-change: transform;
-}
-
-.ambient-orb-1 {
-  width: clamp(260px, 40vw, 480px);
-  height: clamp(260px, 40vw, 480px);
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0) 70%);
-  top: -80px;
-  right: -60px;
-  animation: ambientFloat1 18s infinite alternate ease-in-out;
-}
-
-.ambient-orb-2 {
-  width: clamp(280px, 45vw, 520px);
-  height: clamp(280px, 45vw, 520px);
-  background: radial-gradient(circle, rgba(16, 60, 107, 0.28) 0%, rgba(16, 60, 107, 0) 70%);
-  top: -60px;
-  left: -80px;
-  animation: ambientFloat2 22s infinite alternate ease-in-out;
-}
-
-@keyframes ambientFloat1 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-30px, 40px) scale(1.08); }
-  100% { transform: translate(20px, 20px) scale(0.95); }
-}
-
-@keyframes ambientFloat2 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, 30px) scale(1.05); }
-  100% { transform: translate(-20px, 50px) scale(0.92); }
-}
-
-/* Header & Brand */
+/* Header & Brand Sylla Redesign */
 .site-header {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 2px 10px rgba(10, 31, 56, 0.03);
+  box-shadow: 0 1px 4px rgba(15, 61, 51, 0.04);
   transition: all 0.25s ease;
 }
 
 .header-inner {
-  max-width: min(94%, 1520px);
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -172,36 +143,27 @@ body {
   gap: 0.75rem;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.2s var(--ease-out-smooth);
+  transition: opacity 0.2s ease;
 }
 
 .brand-wrapper:hover {
-  transform: scale(1.02);
-}
-
-.brand-wrapper:active {
-  transform: scale(0.98);
+  opacity: 0.9;
 }
 
 .brand-logo-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--sylla-blue-900) 0%, var(--sylla-green-600) 100%);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--green-dark);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--sylla-white);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  font-family: var(--font-title);
   font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: -0.5px;
+  font-size: 1.35rem;
+  box-shadow: 0 4px 12px rgba(15, 61, 51, 0.2);
   flex-shrink: 0;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.brand-wrapper:hover .brand-logo-icon {
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.45);
 }
 
 .brand-info {
@@ -210,39 +172,41 @@ body {
 }
 
 .brand-title {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--sylla-blue-900);
-  letter-spacing: -0.3px;
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.2px;
   line-height: 1.2;
 }
 
 .brand-subtitle {
-  font-size: 0.72rem;
-  color: var(--sylla-green-600);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.2px;
 }
 
-/* Navigation tabs */
+/* Onglets en pilule */
 .nav-tabs {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  background: var(--sylla-gray-100);
+  background: var(--bg-secondary);
   padding: 0.25rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--sylla-gray-200);
+  border: 1px solid var(--border);
 }
 
 .nav-tab-btn {
   border: none;
   background: transparent;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  padding: 0.5rem 1.15rem;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
   font-weight: 600;
-  color: var(--sylla-gray-600);
+  color: var(--text);
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all 0.2s var(--ease-out-smooth);
@@ -254,17 +218,13 @@ body {
 }
 
 .nav-tab-btn:hover {
-  color: var(--sylla-blue-900);
-}
-
-.nav-tab-btn:active {
-  transform: scale(0.97);
+  color: var(--green-dark);
 }
 
 .nav-tab-btn.active {
-  background: var(--sylla-white);
-  color: var(--sylla-blue-900);
-  box-shadow: var(--shadow-sm);
+  background: var(--green-dark);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(15, 61, 51, 0.25);
   font-weight: 700;
 }
 
@@ -329,9 +289,759 @@ body {
 }
 
 /* ========================================================
-   REFACTORING UI — SYLLA COLLABORATIONS (OCCUPER TOUT L'ÉCRAN)
-   Structure 94% de largeur, 2 colonnes Desktop (40% / 60%)
+   PIED DE PAGE INSTITUTIONNEL SYLLA (REDESIGN)
    ======================================================== */
+.site-footer {
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  padding: 0.85rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.footer-brand {
+  font-family: var(--font-title);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.footer-dot {
+  color: var(--text-muted);
+}
+
+.footer-sub {
+  color: var(--text-muted);
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: var(--green-main);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: color 0.15s ease;
+}
+
+.footer-link:hover {
+  color: var(--green-light);
+}
+
+.footer-tag {
+  color: var(--green-main);
+  background: var(--bg-secondary);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.footer-admin-link {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.footer-admin-link:hover {
+  color: var(--text);
+}
+
+/* ========================================================
+   REDESIGN : PAGE CENTRÉE & CARTE UNIQUE (MAX 760PX)
+   ======================================================== */
+.sylla-single-card-page {
+  min-height: calc(100vh - 130px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.25rem, 3.5vw, 2.75rem) 1rem;
+  box-sizing: border-box;
+}
+
+.sylla-single-card {
+  max-width: 760px;
+  width: 100%;
+  background: var(--card-bg);
+  border-radius: 28px;
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 48px -12px rgba(15, 61, 51, 0.08), 0 4px 16px rgba(15, 61, 51, 0.04);
+  padding: 30px;
+  box-sizing: border-box;
+  animation: fadeInCard 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .sylla-single-card {
+    padding: 20px;
+    border-radius: 22px;
+  }
+}
+
+/* 1. Barre de progression (2 segments fins, arrondis) */
+.stepper-bars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.stepper-segment {
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--border);
+  transition: all 0.3s ease;
+}
+
+.stepper-segment.active {
+  background: linear-gradient(90deg, var(--green-main) 0%, var(--green-light) 100%);
+}
+
+/* 2. Titre Étape 1 */
+.category-heading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.95rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-main-title {
+  font-family: var(--font-title);
+  font-size: clamp(1.2rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.category-hint {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* 3. Grille de 6 cartes cliquables (3 cols desktop, 2 cols mobile) */
+.category-grid-redesign {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .category-grid-redesign {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+.category-item-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 84px;
+  outline: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.category-item-card:hover {
+  border-color: var(--green-light);
+  transform: translateY(-1px);
+}
+
+.category-item-card:active {
+  transform: scale(0.98);
+}
+
+.category-item-card.selected {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  box-shadow: 0 4px 14px rgba(15, 61, 51, 0.2);
+}
+
+.category-emoji {
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.category-title {
+  font-family: var(--font-title);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.category-item-card.selected .category-title {
+  color: #ffffff;
+}
+
+.category-desc {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.25;
+}
+
+.category-item-card.selected .category-desc {
+  color: var(--green-light);
+}
+
+@media (max-width: 640px) {
+  .category-desc {
+    display: none;
+  }
+  .category-item-card {
+    min-height: 64px;
+    padding: 8px 6px;
+  }
+}
+
+/* 4. Zone d'enregistrement vocal */
+.recording-box {
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg) 100%);
+  border-radius: 24px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  border: 1px solid rgba(207, 224, 215, 0.6);
+}
+
+.mic-wrapper {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.mic-progress-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 160px;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.mic-circle-bg {
+  stroke: var(--border);
+  stroke-width: 5;
+  fill: none;
+}
+
+.mic-circle-progress {
+  stroke: var(--yellow-accent);
+  stroke-width: 5;
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.15s linear;
+}
+
+.mic-pulse-ring {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  border: 3px solid var(--yellow-accent);
+  pointer-events: none;
+  animation: pulseRing 2.2s cubic-bezier(0.2, 0, 0, 1) infinite;
+}
+
+.mic-pulse-ring:nth-child(2) { animation-delay: 0s; }
+.mic-pulse-ring:nth-child(3) { animation-delay: 0.73s; }
+.mic-pulse-ring:nth-child(4) { animation-delay: 1.46s; }
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.mic-btn {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--green-main) 0%, var(--green-light) 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(31, 122, 92, 0.35);
+  transition: all 0.25s ease;
+  position: relative;
+  z-index: 2;
+  touch-action: manipulation;
+}
+
+.mic-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 28px rgba(31, 122, 92, 0.45);
+}
+
+.mic-btn:active {
+  transform: scale(0.97);
+}
+
+.mic-btn.recording {
+  background: var(--yellow-accent);
+  color: var(--green-dark);
+  box-shadow: 0 10px 32px rgba(242, 184, 75, 0.45);
+}
+
+.mic-stop-icon {
+  width: 26px;
+  height: 26px;
+  background: var(--green-dark);
+  border-radius: 5px;
+  display: block;
+}
+
+.waveform-canvas {
+  width: 280px;
+  height: 42px;
+  max-width: 100%;
+  margin: 6px auto;
+  display: block;
+}
+
+.chrono-display {
+  font-family: var(--font-title);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  margin-top: 4px;
+}
+
+.chrono-total {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+.recording-help-text {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.recording-error {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--error);
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.audio-preview-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.btn-play-preview {
+  background: var(--green-main);
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.45rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease;
+}
+
+.btn-play-preview:hover {
+  background: var(--green-dark);
+}
+
+.pause-icon {
+  width: 10px;
+  height: 12px;
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #ffffff;
+  display: inline-block;
+}
+
+.btn-restart-record {
+  background: none;
+  border: none;
+  color: var(--green-main);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: underline;
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.btn-restart-record:hover {
+  color: var(--green-dark);
+}
+
+/* 5. Bouton Principal d'action */
+.btn-primary-action {
+  width: 100%;
+  min-height: 50px;
+  border-radius: 16px;
+  border: none;
+  background: var(--green-main);
+  color: #ffffff;
+  font-family: var(--font-title);
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(31, 122, 92, 0.25);
+  touch-action: manipulation;
+}
+
+.btn-primary-action:hover:not(:disabled) {
+  background: var(--green-dark);
+  box-shadow: 0 6px 18px rgba(15, 61, 51, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-primary-action:disabled {
+  background: var(--border);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.step-bottom-hint {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 10px;
+  line-height: 1.35;
+}
+
+/* ========================================================
+   ÉTAPE 2 : COMMENT VOUS JOINDRE ?
+   ======================================================== */
+.step2-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.step2-title {
+  font-family: var(--font-title);
+  font-size: clamp(1.2rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.step2-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.step2-recap-banner {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .form-row-2col {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.input-field-group {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-field-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-field-opt {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.input-field-text {
+  width: 100%;
+  border-radius: 14px;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input-field-text:focus {
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 3px rgba(63, 185, 138, 0.25);
+}
+
+.step2-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-back-step1 {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  cursor: pointer;
+  padding: 6px 12px;
+  transition: color 0.15s ease;
+}
+
+.btn-back-step1:hover {
+  color: var(--green-main);
+}
+
+/* ========================================================
+   ÉTAPE 3 : CONFIRMATION D'ENVOI
+   ======================================================== */
+.confirmation-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 0.5rem;
+}
+
+.confirmation-check-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--green-light);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 24px rgba(63, 185, 138, 0.35);
+  font-weight: 800;
+}
+
+.confirmation-title {
+  font-family: var(--font-title);
+  font-size: clamp(1.4rem, 2vw, 1.65rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.3px;
+}
+
+.confirmation-desc {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.tracking-code-frame {
+  border: 2px dashed var(--green-light);
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 16px 28px;
+  font-family: var(--font-title);
+  font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  color: var(--green-dark);
+  letter-spacing: 0.15em;
+  user-select: all;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.confirmation-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+}
+
+/* ========================================================
+   ACCESSIBILITÉ & MODE SOMBRE AUTOMATIQUE
+   ======================================================== */
+:focus-visible {
+  outline: 3px solid var(--yellow-accent) !important;
+  outline-offset: 2px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #08201b;
+    --bg-secondary: #12382f;
+    --card-bg: #0f332b;
+    --text: #e7f3ee;
+    --text-muted: #95b3a6;
+    --border: #1a4a3e;
+
+    --green-dark: #123e34;
+    --green-main: #248b69;
+    --green-light: #3fb98a;
+    --yellow-accent: #f2b84b;
+    --error: #e05248;
+  }
+
+  body {
+    background-image: radial-gradient(circle 800px at top right, rgba(63, 185, 138, 0.12) 0%, transparent 70%);
+  }
+
+  .btn-primary-action {
+    background: var(--green-light);
+    color: #08201b;
+  }
+
+  .mic-btn.recording {
+    color: #08201b;
+  }
+
+  .mic-stop-icon {
+    background: #08201b;
+  }
+}
 
 .sylla-layout-container {
   width: min(94%, 1520px);

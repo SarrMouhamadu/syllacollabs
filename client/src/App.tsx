@@ -4,7 +4,7 @@ import { SubmitPage } from './pages/SubmitPage';
 import { TrackPage } from './pages/TrackPage';
 import { AdminPage } from './pages/AdminPage';
 import { getAdminToken, removeAdminToken } from './services/api';
-import { ExternalLink, Shield, Lock } from 'lucide-react';
+import { Lock } from 'lucide-react';
 
 export function App() {
   // Détection de route : 'public' ou 'admin'
@@ -97,106 +97,46 @@ export function App() {
         {publicTab === 'track' && <TrackPage initialCode={trackCode} />}
       </main>
 
-      {/* Footer Institutionnel Sylla Compact */}
-      <footer
-        style={{
-          background: 'var(--sylla-white)',
-          borderTop: '1px solid var(--sylla-gray-200)',
-          padding: '0.45rem 1rem',
-          fontSize: '0.78rem',
-          flexShrink: 0,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 'min(94%, 1520px)',
-            width: '100%',
-            margin: '0 auto',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ fontWeight: 800, color: 'var(--sylla-blue-900)' }}>SYLLA COLLABORATIONS</span>
-            <span style={{ color: 'var(--sylla-gray-400)' }}>•</span>
-            <span style={{ color: 'var(--sylla-gray-500)' }}>Écosystème Sylla</span>
+      {/* Pied de page institutionnel Sylla */}
+      <footer className="site-footer">
+        <div className="footer-inner">
+          <div className="footer-left">
+            <span className="footer-brand">Sylla Collaborations</span>
+            <span className="footer-dot">·</span>
+            <span className="footer-sub">Écosystème Sylla</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <div className="footer-right">
             <a
               href="https://syllavoyage.com"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 4,
-                color: 'var(--sylla-blue-700)',
-                textDecoration: 'none',
-                fontWeight: 600,
-                fontSize: '0.75rem',
-              }}
+              className="footer-link"
             >
-              <span>Sylla Voyage</span>
-              <ExternalLink size={11} />
+              Sylla Voyage
             </a>
-
+            <span className="footer-dot">·</span>
             <a
               href="https://www.syllaenglishacademy.com"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 4,
-                color: 'var(--sylla-blue-700)',
-                textDecoration: 'none',
-                fontWeight: 600,
-                fontSize: '0.75rem',
-              }}
+              className="footer-link"
             >
-              <span>Sylla English Academy</span>
-              <ExternalLink size={11} />
+              Sylla English Academy
             </a>
-
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 3,
-                fontSize: '0.7rem',
-                color: 'var(--sylla-green-700)',
-                background: 'var(--sylla-green-50)',
-                padding: '0.15rem 0.5rem',
-                borderRadius: 'var(--radius-full)',
-                fontWeight: 700,
-              }}
-            >
-              <Shield size={10} />
-              <span>Dossiers Sécurisés</span>
+            <span className="footer-dot">·</span>
+            <span className="footer-tag">
+              Dossiers sécurisés
             </span>
 
             <button
               type="button"
               onClick={navigateToAdmin}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--sylla-gray-400)',
-                fontSize: '0.72rem',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 3,
-                padding: '0.1rem 0.3rem',
-              }}
-              title="Accès réservé à la direction"
+              className="footer-admin-link"
+              title="Portail de direction"
             >
-              <Lock size={10} />
-              <span>Portail Interne</span>
+              <Lock size={11} />
+              <span>Cockpit</span>
             </button>
           </div>
         </div>
