@@ -350,6 +350,272 @@ body {
   flex-direction: column;
 }
 
+/* ========================================================
+   STEPPER HORIZONTAL 2 ÉTAPES SYLLA
+   ======================================================== */
+.sylla-stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  max-width: 620px;
+  width: 100%;
+  margin: 0 auto clamp(0.6rem, 1vw, 1.1rem);
+  padding: 0.4rem 1.15rem;
+  background: var(--sylla-white);
+  border: 1px solid var(--sylla-gray-200);
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 8px rgba(10, 31, 56, 0.04);
+}
+
+.sylla-stepper-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-full);
+  transition: all 0.2s var(--ease-out-smooth);
+  user-select: none;
+  outline: none;
+}
+
+.sylla-stepper-step.active {
+  background: var(--sylla-blue-50);
+}
+
+.sylla-stepper-step.completed {
+  cursor: pointer;
+}
+
+.sylla-stepper-step.completed:hover {
+  background: var(--sylla-green-50);
+  transform: translateY(-1px);
+}
+
+.stepper-step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--sylla-gray-300);
+  color: var(--sylla-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.sylla-stepper-step.active .stepper-step-num {
+  background: var(--sylla-blue-900);
+  box-shadow: 0 2px 6px rgba(10, 31, 56, 0.25);
+}
+
+.sylla-stepper-step.completed .stepper-step-num {
+  background: var(--sylla-green-600);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+}
+
+.stepper-step-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.stepper-step-tag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sylla-gray-400);
+}
+
+.sylla-stepper-step.active .stepper-step-tag {
+  color: var(--sylla-blue-700);
+}
+
+.sylla-stepper-step.completed .stepper-step-tag {
+  color: var(--sylla-green-700);
+}
+
+.stepper-step-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--sylla-gray-600);
+}
+
+.sylla-stepper-step.active .stepper-step-title {
+  color: var(--sylla-blue-900);
+}
+
+.sylla-stepper-step.completed .stepper-step-title {
+  color: var(--sylla-green-800);
+}
+
+.sylla-stepper-line {
+  flex: 1;
+  max-width: 70px;
+  height: 2.5px;
+  background: var(--sylla-gray-200);
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.sylla-stepper-line.active {
+  background: linear-gradient(90deg, var(--sylla-green-500), var(--sylla-blue-700));
+}
+
+/* ========================================================
+   CARTE RÉCAPITULATIF PROJET ÉTAPE 2
+   ======================================================== */
+.sylla-project-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--sylla-white);
+  border: 1px solid var(--sylla-gray-200);
+}
+
+.btn-edit-project {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--sylla-blue-200);
+  background: var(--sylla-blue-50);
+  color: var(--sylla-blue-700);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-edit-project:hover {
+  background: var(--sylla-blue-100);
+  border-color: var(--sylla-blue-300);
+  transform: translateY(-1px);
+}
+
+.summary-category-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--sylla-gray-50);
+  border: 1px solid var(--sylla-gray-200);
+  border-radius: var(--radius-md);
+}
+
+.summary-cat-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--sylla-blue-50);
+  color: var(--sylla-blue-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.summary-cat-label-sub {
+  font-size: 0.68rem;
+  color: var(--sylla-gray-500);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.summary-cat-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--sylla-blue-900);
+}
+
+.summary-audio-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 1px solid var(--sylla-green-200);
+  border-radius: var(--radius-md);
+}
+
+.summary-audio-badge.text-only {
+  background: var(--sylla-blue-50);
+  border-color: var(--sylla-blue-200);
+}
+
+.summary-audio-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--sylla-green-800);
+}
+
+.summary-audio-badge.text-only .summary-audio-title {
+  color: var(--sylla-blue-900);
+}
+
+.summary-audio-duration {
+  font-size: 0.72rem;
+  color: var(--sylla-gray-600);
+}
+
+.summary-ready-tag {
+  background: var(--sylla-green-600);
+  color: var(--sylla-white);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.summary-text-box {
+  padding: 0.65rem 0.85rem;
+  background: var(--sylla-gray-50);
+  border: 1px solid var(--sylla-gray-200);
+  border-radius: var(--radius-md);
+}
+
+.summary-text-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--sylla-gray-500);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.summary-text-content {
+  font-size: 0.82rem;
+  color: var(--sylla-gray-700);
+  line-height: 1.4;
+  margin: 0;
+  font-style: italic;
+}
+
+.step-badge-check {
+  background: var(--sylla-green-600) !important;
+}
+
+.animate-fade-in {
+  animation: fadeInStep 0.3s var(--ease-out-smooth) both;
+}
+
+@keyframes fadeInStep {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Grille principale 2 colonnes Desktop : ~40% Gauche / ~60% Droite */
 .sylla-grid-2col {
   display: grid;
@@ -865,6 +1131,20 @@ body {
   .sylla-layout-container {
     width: 100%;
     padding: 0.75rem 0.85rem 2.5rem;
+  }
+
+  .sylla-stepper-container {
+    gap: 0.45rem;
+    padding: 0.35rem 0.65rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .stepper-step-title {
+    font-size: 0.75rem;
+  }
+
+  .sylla-stepper-line {
+    max-width: 35px;
   }
 
   .sylla-grid-2col {
