@@ -16,6 +16,8 @@ import {
   AlertCircle,
   HelpCircle,
   RefreshCw,
+  Shield,
+  Zap,
 } from 'lucide-react';
 import type { CollaborationCategory } from '../types';
 import { AudioRecorder } from '../components/AudioRecorder';
@@ -286,7 +288,7 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
           ======================================================== */}
       {currentStep === 1 && (
         <div className="sylla-grid-2col animate-fade-in">
-          {/* Colonne gauche (~40%) : Hero + Catégories */}
+          {/* Colonne gauche (~40%) : Hero + Présentation & Avantages */}
           <div className="sylla-col-left">
             <div className="sylla-hero-block">
               <div className="hero-pill">
@@ -297,11 +299,47 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                 Proposez votre projet de <span className="hero-title-highlight">collaboration</span>
               </h1>
               <p className="hero-desc-main">
-                Étape 1 sur 2 : Choisissez votre type de partenariat puis enregistrez votre message vocal.
+                Étape 1 sur 2 : Choisissez votre type de partenariat puis enregistrez votre message vocal pour présenter votre proposition.
               </p>
             </div>
 
-            {/* Étape 1 : Type de collaboration */}
+            {/* Carte de réassurance & avantages clés */}
+            <div className="sylla-card sylla-hero-info-card">
+              <div className="info-feature-item">
+                <div className="info-feature-icon">
+                  <Mic size={18} />
+                </div>
+                <div>
+                  <h3 className="info-feature-title">100% Vocal & Direct</h3>
+                  <p className="info-feature-desc">Présentez votre projet à vive voix en toute authenticité (2 minutes maximum).</p>
+                </div>
+              </div>
+
+              <div className="info-feature-item">
+                <div className="info-feature-icon">
+                  <Zap size={18} />
+                </div>
+                <div>
+                  <h3 className="info-feature-title">Accès Direction Sylla</h3>
+                  <p className="info-feature-desc">Votre proposition est transmise directement et analysée sans intermédiaire.</p>
+                </div>
+              </div>
+
+              <div className="info-feature-item">
+                <div className="info-feature-icon">
+                  <Shield size={18} />
+                </div>
+                <div>
+                  <h3 className="info-feature-title">Suivi Instantané & Sécurisé</h3>
+                  <p className="info-feature-desc">Un code confidentiel unique vous permet de suivre l'avancement en temps réel.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Colonne droite (~60%) : 1. Type de collaboration et 2. Votre projet (SUPERPOSÉS) */}
+          <div className="sylla-col-right">
+            {/* 1. Type de collaboration */}
             <div className="sylla-card sylla-card-step1">
               <div className="sylla-card-header">
                 <span className="step-badge">1</span>
@@ -341,10 +379,8 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                 })}
               </div>
             </div>
-          </div>
 
-          {/* Colonne droite (~60%) : Votre projet (Vocal immersif) + Bouton Continuer */}
-          <div className="sylla-col-right">
+            {/* 2. Votre projet (Vocal immersif) - SUPERPOSÉ */}
             <div className="sylla-card sylla-card-step2">
               <div className="sylla-card-header">
                 <span className="step-badge">2</span>

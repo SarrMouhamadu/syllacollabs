@@ -762,12 +762,61 @@ body {
 }
 
 /* ========================================================
+   CARTE RÉASSURANCE & AVANTAGES (COLONNE GAUCHE)
+   ======================================================== */
+.sylla-hero-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: linear-gradient(155deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid var(--sylla-gray-200);
+  border-radius: var(--radius-lg);
+  padding: clamp(0.75rem, 1.1vw, 1rem);
+  box-shadow: 0 4px 14px -2px rgba(10, 31, 56, 0.04);
+}
+
+.info-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.info-feature-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--sylla-blue-50);
+  color: var(--sylla-blue-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--sylla-blue-100);
+  box-shadow: 0 1px 3px rgba(10, 31, 56, 0.05);
+}
+
+.info-feature-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--sylla-blue-900);
+  margin: 0 0 0.15rem;
+  line-height: 1.25;
+}
+
+.info-feature-desc {
+  font-size: 0.74rem;
+  color: var(--sylla-gray-600);
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* ========================================================
    SECTION 1 : CATÉGORIES (Grille 3 colonnes × 2 lignes)
    ======================================================== */
 .category-grid-desktop {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.45rem, 0.75vw, 0.65rem);
+  gap: clamp(0.4rem, 0.65vw, 0.55rem);
 }
 
 .category-card-desktop {
@@ -775,7 +824,7 @@ body {
   background: var(--sylla-white);
   border: 1.5px solid var(--sylla-gray-200);
   border-radius: var(--radius-md);
-  padding: clamp(0.6rem, 0.9vw, 0.85rem) 0.4rem;
+  padding: clamp(0.45rem, 0.75vw, 0.65rem) 0.35rem;
   text-align: center;
   cursor: pointer;
   transition: all 0.2s var(--ease-out-smooth);
@@ -783,8 +832,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
-  min-height: 76px;
+  gap: 0.3rem;
+  min-height: clamp(60px, 6.5vh, 68px);
   user-select: none;
   touch-action: manipulation;
   outline: none;
