@@ -1,0 +1,28 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production builds
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Audio uploads storage (keep directory structure)
+server/uploads/audio/*
+!server/uploads/audio/.gitkeep
+
+# IDE and temporary logs
+.vscode/
+.idea/
+*.log

@@ -1,0 +1,86 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum CollaborationCategory {
+  PUBLICITE
+  PARTENARIAT
+  EVENEMENT
+  SPONSORING
+  CREATION_CONTENU
+  AUTRE
+}
+
+enum CollaborationStatus {
+  NOUVELLE
+  EN_ETUDE
+  ACCEPTEE
+  REFUSEE
+  ARCHIVEE
+}
+
+model Collaboration {
+  id            String                @id @default(uuid())
+  trackingCode  String                @unique
+  category      CollaborationCategory
+  description   String?               @db.Text
+  audioPath     String?
+  audioDuration Int?
+  audioMimeType String?
+  fullName      String
+  phone         String
+  company       String?
+  status        CollaborationStatus   @default(NOUVELLE)
+  previousStatus CollaborationStatus?
+  archivedAt    DateTime?
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+
+  statusHistory StatusHistory[]
+  internalNotes InternalNote[]
+
+  @@index([trackingCode])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model StatusHistory {
+  id              String              @id @default(uuid())
+  collaborationId String
+  status          CollaborationStatus
+  publicComment   String?             @db.Text
+  createdAt       DateTime            @default(now())
+
+  collaboration   Collaboration       @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
+
+  @@index([collaborationId])
+  @@index([createdAt])
+}
+
+model InternalNote {
+  id              String        @id @default(uuid())
+  collaborationId String
+  author          String        @default("Admin")
+  content         String        @db.Text
+  createdAt       DateTime      @default(now())
+
+  collaboration   Collaboration @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
+
+  @@index([collaborationId])
+  @@index([createdAt])
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  fullName     String   @default("Administrateur Sylla")
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
