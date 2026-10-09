@@ -65,7 +65,6 @@ const CATEGORIES: {
 export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
   const [currentStep, setCurrentStep] = useState<1 | 2>(1);
   const [selectedCategory, setSelectedCategory] = useState<CollaborationCategory>('PUBLICITE');
-  const [description, setDescription] = useState('');
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [audioDuration, setAudioDuration] = useState(0);
 
@@ -93,9 +92,9 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
 
   const handleGoToStep2 = () => {
     setErrorMessage(null);
-    if (!description.trim() && !audioBlob) {
+    if (!audioBlob) {
       setErrorMessage(
-        'Veuillez expliquer votre projet soit par un message vocal (recommandé), soit par écrit avant de continuer.'
+        'Veuillez enregistrer votre message vocal présentant votre projet avant de continuer.'
       );
       return;
     }
@@ -118,9 +117,9 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
       return;
     }
 
-    if (!description.trim() && !audioBlob) {
+    if (!audioBlob) {
       setErrorMessage(
-        'Veuillez expliquer votre projet soit par un message vocal (recommandé), soit par écrit (ou les deux).'
+        'Veuillez enregistrer votre message vocal pour présenter votre projet.'
       );
       return;
     }
@@ -133,9 +132,6 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
     formData.append('phone', phone.trim());
     if (company.trim()) {
       formData.append('company', company.trim());
-    }
-    if (description.trim()) {
-      formData.append('description', description.trim());
     }
     if (audioBlob) {
       const ext = audioBlob.type.includes('mp4') || audioBlob.type.includes('m4a') || audioBlob.type.includes('aac')
@@ -233,7 +229,6 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                 setFullName('');
                 setPhone('');
                 setCompany('');
-                setDescription('');
                 setAudioBlob(null);
                 setAudioDuration(0);
               }}
@@ -302,7 +297,7 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                 Proposez votre projet de <span className="hero-title-highlight">collaboration</span>
               </h1>
               <p className="hero-desc-main">
-                Étape 1 sur 2 : Choisissez votre type de partenariat puis enregistrez votre message vocal ou décrivez votre proposition.
+                Étape 1 sur 2 : Choisissez votre type de partenariat puis enregistrez votre message vocal.
               </p>
             </div>
 
@@ -348,33 +343,19 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
             </div>
           </div>
 
-          {/* Colonne droite (~60%) : Votre projet (Vocal + Texte) + Bouton Continuer */}
+          {/* Colonne droite (~60%) : Votre projet (Vocal immersif) + Bouton Continuer */}
           <div className="sylla-col-right">
             <div className="sylla-card sylla-card-step2">
               <div className="sylla-card-header">
                 <span className="step-badge">2</span>
                 <div>
                   <h2 className="step-title">Votre projet</h2>
-                  <p className="step-subtitle">Enregistrement vocal immersif (recommandé et rapide) ou précisions écrites</p>
+                  <p className="step-subtitle">Enregistrement vocal immersif (2 minutes maximum)</p>
                 </div>
               </div>
 
               {/* Enregistreur vocal immersif */}
               <AudioRecorder onAudioReady={handleAudioReady} maxSeconds={120} />
-
-              {/* Champ texte pour précisions écrites */}
-              <div className="form-group-note">
-                <label className="field-label">
-                  Précisions écrites <span className="field-optional">(facultatif si vous avez envoyé un vocal)</span>
-                </label>
-                <textarea
-                  className="field-textarea"
-                  rows={2}
-                  placeholder="Décrivez votre idée, vos objectifs, le budget envisagé ou toute information utile pour notre équipe..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
             </div>
 
             {/* Bouton pour aller à l'étape 2 */}
@@ -449,7 +430,7 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                   </div>
                 </div>
 
-                {audioBlob ? (
+                {audioBlob && (
                   <div className="summary-audio-badge">
                     <Mic size={18} color="var(--sylla-green-600)" />
                     <div style={{ flex: 1 }}>
@@ -459,25 +440,6 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                       </div>
                     </div>
                     <span className="summary-ready-tag">Prêt</span>
-                  </div>
-                ) : (
-                  <div className="summary-audio-badge text-only">
-                    <span style={{ fontSize: '1.2rem' }}>✍️</span>
-                    <div style={{ flex: 1 }}>
-                      <div className="summary-audio-title">Message écrit uniquement</div>
-                      <div className="summary-audio-duration">Texte explicatif fourni</div>
-                    </div>
-                  </div>
-                )}
-
-                {description.trim() && (
-                  <div className="summary-text-box">
-                    <div className="summary-text-label">Précisions écrites :</div>
-                    <p className="summary-text-content">
-                      {description.trim().length > 180
-                        ? `${description.trim().slice(0, 180)}...`
-                        : description.trim()}
-                    </p>
                   </div>
                 )}
               </div>
