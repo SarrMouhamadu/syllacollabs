@@ -94,13 +94,24 @@ export const AudioRecorder: FC<AudioRecorderProps> = ({
       animationFrameRef.current = requestAnimationFrame(renderFrame);
       analyser.getByteFrequencyData(dataArray);
 
+      // Adaptation dynamique de la taille du canvas à son affichage réel
+      if (canvas.offsetWidth > 0) {
+        const dpr = window.devicePixelRatio || 1;
+        const targetWidth = Math.floor(canvas.offsetWidth * dpr);
+        const targetHeight = Math.floor(50 * dpr);
+        if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+        }
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const barWidth = (canvas.width / bufferLength) * 2.5;
       let x = 0;
 
       for (let i = 0; i < bufferLength; i++) {
-        const barHeight = Math.max(3, (dataArray[i] / 255) * canvas.height);
+        const barHeight = Math.max(3 * (window.devicePixelRatio || 1), (dataArray[i] / 255) * canvas.height);
 
         // Dégradé Sylla (Bleu profond vers Vert émeraude)
         const gradient = ctx.createLinearGradient(0, canvas.height, 0, 0);
@@ -247,14 +258,18 @@ export const AudioRecorder: FC<AudioRecorderProps> = ({
       {/* État 1 : En attente d'enregistrement */}
       {!isRecording && !recordedBlob && (
         <div>
-          <button
-            type="button"
-            onClick={startRecording}
-            className="record-btn-main"
-            title="Démarrer l'enregistrement vocal"
-          >
-            <Mic size={32} />
-          </button>
+          <div className="record-btn-container">
+            <div className="record-btn-glow" />
+            <button
+              type="button"
+              onClick={startRecording}
+              className="record-btn-main"
+              title="Démarrer l'enregistrement vocal"
+              aria-label="Démarrer l'enregistrement vocal"
+            >
+              <Mic size={32} />
+            </button>
+          </div>
           <p style={{ marginTop: '0.75rem', fontWeight: 700, color: 'var(--sylla-blue-900)' }}>
             Appuyez pour enregistrer votre message vocal
           </p>
@@ -267,33 +282,49 @@ export const AudioRecorder: FC<AudioRecorderProps> = ({
       {/* État 2 : Enregistrement en cours */}
       {isRecording && (
         <div>
-          <button
-            type="button"
-            onClick={stopRecording}
-            className="record-btn-main recording"
-            title="Arrêter et valider l'enregistrement"
-          >
-            <Square size={28} />
-          </button>
+          <div className="record-btn-container">
+            <button
+              type="button"
+              onClick={stopRecording}
+              className="record-btn-main recording"
+              title="Arrêter et valider l'enregistrement"
+              aria-label="Arrêter et valider l'enregistrement vocal"
+            >
+              <Square size={26} />
+            </button>
+          </div>
+
+          <div className="recording-live-badge">
+            <span className="live-dot" />
+            <span>Enregistrement en cours</span>
+          </div>
 
           <div className={`record-timer ${recordingSeconds > 100 ? 'urgent' : ''}`}>
             {formatTimer(recordingSeconds)} / {formatTimer(maxSeconds)}
           </div>
 
-          <p style={{ fontSize: '0.85rem', color: 'var(--sylla-red-500)', fontWeight: 600, marginTop: 4 }}>
-            Enregistrement en cours... Parlez distinctement
+          <div className="record-progress-track">
+            <div
+              className="record-progress-fill"
+              style={{ width: `${Math.min(100, (recordingSeconds / maxSeconds) * 100)}%` }}
+            />
+          </div>
+
+          <p style={{ fontSize: '0.85rem', color: 'var(--sylla-red-500)', fontWeight: 600, margin: '0.4rem 0 0.6rem' }}>
+            Parlez distinctement dans votre microphone
           </p>
 
           <canvas ref={canvasRef} width={400} height={50} className="waveform-canvas" />
 
-          <button
-            type="button"
-            onClick={stopRecording}
-            className="btn btn-primary btn-sm"
-            style={{ marginTop: '0.5rem' }}
-          >
-            Terminer l'enregistrement
-          </button>
+          <div style={{ marginTop: '0.75rem' }}>
+            <button
+              type="button"
+              onClick={stopRecording}
+              className="btn btn-primary btn-sm"
+            >
+              Terminer l'enregistrement
+            </button>
+          </div>
         </div>
       )}
 

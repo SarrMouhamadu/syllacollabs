@@ -13,6 +13,7 @@ import {
   Send,
   AlertCircle,
   HelpCircle,
+  RefreshCw,
 } from 'lucide-react';
 import type { CollaborationCategory } from '../types';
 import { AudioRecorder } from '../components/AudioRecorder';
@@ -293,17 +294,34 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
           </div>
           <p className="card-helper">Sélectionnez la catégorie qui correspond le mieux à votre proposition.</p>
 
-          <div className="category-grid">
-            {CATEGORIES.map((cat) => (
-              <div
-                key={cat.key}
-                className={`category-card ${selectedCategory === cat.key ? 'selected' : ''}`}
-                onClick={() => setSelectedCategory(cat.key)}
-              >
-                <div className="category-icon">{cat.icon}</div>
-                <div className="category-label">{cat.label}</div>
-              </div>
-            ))}
+          <div className="category-grid" role="radiogroup" aria-label="Type de collaboration">
+            {CATEGORIES.map((cat) => {
+              const isSelected = selectedCategory === cat.key;
+              return (
+                <div
+                  key={cat.key}
+                  role="radio"
+                  aria-checked={isSelected}
+                  tabIndex={0}
+                  className={`category-card ${isSelected ? 'selected' : ''}`}
+                  onClick={() => setSelectedCategory(cat.key)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedCategory(cat.key);
+                    }
+                  }}
+                >
+                  {isSelected && (
+                    <div className="category-badge-check" aria-hidden="true">
+                      <Check size={11} strokeWidth={3} />
+                    </div>
+                  )}
+                  <div className="category-icon">{cat.icon}</div>
+                  <div className="category-label">{cat.label}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -395,7 +413,10 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
             style={{ minWidth: 260, fontSize: '1.05rem', padding: '0.9rem 2rem' }}
           >
             {isSubmitting ? (
-              <span>Enregistrement du dossier...</span>
+              <>
+                <RefreshCw size={18} className="animate-spin" />
+                <span>Enregistrement du dossier...</span>
+              </>
             ) : (
               <>
                 <Send size={18} />

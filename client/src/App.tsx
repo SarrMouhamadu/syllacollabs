@@ -80,13 +80,19 @@ export function App() {
   // ========================================================
   return (
     <div className="app-container">
+      {/* Orbes d'ambiance dynamiques et légers en arrière-plan */}
+      <div className="ambient-glow-wrapper" aria-hidden="true">
+        <div className="ambient-orb ambient-orb-1" />
+        <div className="ambient-orb ambient-orb-2" />
+      </div>
+
       {/* Header 100% public : aucune option administrateur */}
       <Header
         currentTab={publicTab}
         setCurrentTab={setPublicTab}
       />
 
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, position: 'relative', zIndex: 1 }}>
         {publicTab === 'submit' && <SubmitPage onGoToTrack={handleGoToTrack} />}
         {publicTab === 'track' && <TrackPage initialCode={trackCode} />}
       </main>

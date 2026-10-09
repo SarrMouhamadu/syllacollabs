@@ -18,29 +18,8 @@ export const AdminHeader: FC<AdminHeaderProps> = ({
   onGoToPublic,
 }) => {
   return (
-    <header
-      style={{
-        background: 'var(--sylla-blue-900)',
-        color: 'var(--sylla-white)',
-        borderBottom: '2px solid var(--sylla-green-500)',
-        boxShadow: '0 4px 12px rgba(10, 31, 56, 0.25)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: '0 auto',
-          padding: '0.85rem 1.25rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '1rem',
-        }}
-      >
+    <header className="admin-header">
+      <div className="admin-header-inner">
         {/* Titre et Badge Cockpit */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           <div
@@ -89,7 +68,7 @@ export const AdminHeader: FC<AdminHeaderProps> = ({
         </div>
 
         {/* Profil & Actions de session */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', flexWrap: 'wrap' }}>
+        <div className="admin-header-actions">
           {currentUser && (
             <div
               style={{
@@ -111,19 +90,11 @@ export const AdminHeader: FC<AdminHeaderProps> = ({
           <button
             type="button"
             onClick={onRefresh}
+            className="admin-header-btn"
             style={{
               background: 'rgba(255, 255, 255, 0.1)',
               border: '1px solid rgba(255, 255, 255, 0.2)',
               color: 'var(--sylla-white)',
-              borderRadius: 'var(--radius-md)',
-              padding: '0.45rem 0.8rem',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 5,
-              transition: 'all 0.2s',
             }}
             title="Rafraîchir les dossiers"
           >
@@ -134,18 +105,11 @@ export const AdminHeader: FC<AdminHeaderProps> = ({
           <button
             type="button"
             onClick={onGoToPublic}
+            className="admin-header-btn"
             style={{
               background: 'transparent',
               border: '1px solid rgba(255, 255, 255, 0.2)',
               color: 'var(--sylla-gray-300)',
-              borderRadius: 'var(--radius-md)',
-              padding: '0.45rem 0.8rem',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 5,
             }}
             title="Aller sur l'interface publique"
           >
@@ -156,18 +120,11 @@ export const AdminHeader: FC<AdminHeaderProps> = ({
           <button
             type="button"
             onClick={onLogout}
+            className="admin-header-btn"
             style={{
               background: 'rgba(239, 68, 68, 0.2)',
               border: '1px solid rgba(239, 68, 68, 0.4)',
               color: '#fca5a5',
-              borderRadius: 'var(--radius-md)',
-              padding: '0.45rem 0.8rem',
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 5,
             }}
             title="Déconnexion sécurisée"
           >
