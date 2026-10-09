@@ -10,8 +10,6 @@ import {
   Copy,
   Check,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   Send,
   AlertCircle,
   HelpCircle,
@@ -33,32 +31,32 @@ const CATEGORIES: {
   {
     key: 'PUBLICITE',
     label: 'Publicité',
-    icon: <Megaphone size={19} />,
+    icon: <Megaphone size={22} />,
   },
   {
     key: 'PARTENARIAT',
     label: 'Partenariat',
-    icon: <Handshake size={19} />,
+    icon: <Handshake size={22} />,
   },
   {
     key: 'EVENEMENT',
     label: 'Événement',
-    icon: <Calendar size={19} />,
+    icon: <Calendar size={22} />,
   },
   {
     key: 'SPONSORING',
     label: 'Sponsoring',
-    icon: <Award size={19} />,
+    icon: <Award size={22} />,
   },
   {
     key: 'CREATION_CONTENU',
-    label: 'Contenu',
-    icon: <Video size={19} />,
+    label: 'Création Contenu',
+    icon: <Video size={22} />,
   },
   {
     key: 'AUTRE',
-    label: 'Autre',
-    icon: <Sparkles size={19} />,
+    label: 'Autre Projet',
+    icon: <Sparkles size={22} />,
   },
 ];
 
@@ -71,8 +69,6 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [company, setCompany] = useState('');
-
-  const [mobileStep, setMobileStep] = useState<1 | 2 | 3>(1);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -98,15 +94,13 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
 
     if (!fullName.trim() || !phone.trim()) {
       setErrorMessage('Veuillez renseigner votre nom complet et votre numéro de téléphone/WhatsApp.');
-      setMobileStep(3);
       return;
     }
 
     if (!description.trim() && !audioBlob) {
       setErrorMessage(
-        'Veuillez expliquer votre projet soit par un message vocal (recommandé), soit par écrit.'
+        'Veuillez expliquer votre projet soit par un message vocal (recommandé), soit par écrit (ou les deux).'
       );
-      setMobileStep(2);
       return;
     }
 
@@ -153,78 +147,61 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
   // Vue de confirmation
   if (submittedData) {
     return (
-      <div className="single-page-wrapper">
-        <div className="success-card" style={{ margin: '1rem auto', padding: '1.5rem', maxWidth: 580 }}>
-          <div className="success-icon-bubble" style={{ width: 60, height: 60, margin: '0 auto 0.75rem' }}>
-            <Check size={32} />
+      <div className="sylla-layout-container">
+        <div className="success-card-master">
+          <div className="success-icon-bubble">
+            <Check size={36} />
           </div>
 
-          <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--sylla-blue-900)', marginBottom: '0.35rem' }}>
+          <h2 className="success-title">
             Demande enregistrée avec succès !
           </h2>
 
-          <p style={{ color: 'var(--sylla-gray-600)', fontSize: '0.875rem', maxWidth: 480, margin: '0 auto 1rem' }}>
-            Merci {submittedData.fullName}. Votre dossier a bien été transmis à la direction Sylla.
+          <p className="success-desc">
+            Merci <strong>{submittedData.fullName}</strong>. Votre dossier a bien été transmis à la direction Sylla.
+            Voici votre code de suivi unique :
           </p>
 
-          <div className="tracking-code-banner" style={{ padding: '0.85rem 1.25rem' }}>
+          <div className="tracking-code-banner">
             <div>
-              <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--sylla-gray-300)', letterSpacing: 1 }}>
-                Code de suivi unique
-              </div>
-              <div className="tracking-code-value" style={{ fontSize: '1.5rem' }}>{submittedData.trackingCode}</div>
+              <div className="tracking-code-label">Code de suivi unique</div>
+              <div className="tracking-code-value">{submittedData.trackingCode}</div>
             </div>
 
             <button
               type="button"
               onClick={copyToClipboard}
-              className="btn btn-whatsapp btn-sm"
-              style={{ padding: '0.5rem 0.85rem' }}
+              className="btn btn-whatsapp"
             >
               {copied ? (
                 <>
-                  <Check size={15} />
+                  <Check size={16} />
                   <span>Copié !</span>
                 </>
               ) : (
                 <>
-                  <Copy size={15} />
+                  <Copy size={16} />
                   <span>Copier</span>
                 </>
               )}
             </button>
           </div>
 
-          <div
-            style={{
-              background: 'var(--sylla-blue-50)',
-              border: '1px solid var(--sylla-blue-100)',
-              padding: '0.75rem 1rem',
-              borderRadius: 'var(--radius-md)',
-              maxWidth: 480,
-              margin: '1rem auto',
-              fontSize: '0.8rem',
-              color: 'var(--sylla-blue-900)',
-              textAlign: 'left',
-              display: 'flex',
-              gap: '0.5rem',
-            }}
-          >
-            <HelpCircle size={18} color="var(--sylla-blue-600)" style={{ flexShrink: 0, marginTop: 1 }} />
+          <div className="success-info-box">
+            <HelpCircle size={20} color="var(--sylla-blue-600)" style={{ flexShrink: 0, marginTop: 2 }} />
             <div>
-              <strong>Conservez ce code :</strong> il vous permet de suivre l'avancement de votre dossier à tout moment sans mot de passe.
+              <strong>Aucun mot de passe nécessaire :</strong> conservez ce code. Il vous permettra de consulter l'évolution de votre dossier à tout moment sur la page de suivi.
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
+          <div className="success-actions-row">
             <button
               type="button"
               onClick={() => onGoToTrack(submittedData.trackingCode)}
-              className="btn btn-primary btn-sm"
-              style={{ padding: '0.65rem 1.25rem' }}
+              className="btn btn-primary"
             >
-              <span>Suivre mon dossier</span>
-              <ArrowRight size={15} />
+              <span>Suivre mon dossier dès maintenant</span>
+              <ArrowRight size={18} />
             </button>
 
             <button
@@ -237,11 +214,10 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                 setDescription('');
                 setAudioBlob(null);
                 setAudioDuration(0);
-                setMobileStep(1);
               }}
-              className="btn btn-outline btn-sm"
+              className="btn btn-outline"
             >
-              Autre proposition
+              Déposer une autre demande
             </button>
           </div>
         </div>
@@ -250,92 +226,49 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
   }
 
   return (
-    <div className="single-page-wrapper">
-      {/* Mini-Hero Banner ultra compact */}
-      <div className="submit-hero-compact">
-        <div className="hero-pill-compact">
-          <Sparkles size={13} />
-          <span>Écosystème Sylla • Collaborations Directes</span>
-        </div>
-        <h1 className="submit-title-compact">
-          Proposez votre <span className="hero-title-highlight">collaboration</span>
-        </h1>
-        <p className="submit-desc-compact">
-          Partenariat, sponsoring ou média : soumettez votre demande en direct par message vocal ou écrit.
-        </p>
-      </div>
-
+    <div className="sylla-layout-container">
       {errorMessage && (
-        <div
-          style={{
-            background: 'var(--sylla-red-50)',
-            border: '1px solid #fecaca',
-            color: 'var(--sylla-red-500)',
-            padding: '0.5rem 0.85rem',
-            borderRadius: 'var(--radius-sm)',
-            marginBottom: '0.6rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            fontSize: '0.825rem',
-            fontWeight: 600,
-          }}
-        >
-          <AlertCircle size={16} style={{ flexShrink: 0 }} />
+        <div className="error-alert-banner">
+          <AlertCircle size={20} style={{ flexShrink: 0 }} />
           <span>{errorMessage}</span>
         </div>
       )}
 
-      {/* Stepper tactile pour petits écrans / mobile (< 860px) */}
-      <div className="mobile-stepper" role="tablist">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={mobileStep === 1}
-          className={`stepper-pill ${mobileStep === 1 ? 'active' : ''}`}
-          onClick={() => setMobileStep(1)}
-        >
-          <span className="step-num">1</span>
-          <span>Catégorie</span>
-        </button>
-        <div className="stepper-arrow" />
-        <button
-          type="button"
-          role="tab"
-          aria-selected={mobileStep === 2}
-          className={`stepper-pill ${mobileStep === 2 ? 'active' : ''} ${audioBlob || description.trim() ? 'done' : ''}`}
-          onClick={() => setMobileStep(2)}
-        >
-          <span className="step-num">2</span>
-          <span>Vocal & Note</span>
-        </button>
-        <div className="stepper-arrow" />
-        <button
-          type="button"
-          role="tab"
-          aria-selected={mobileStep === 3}
-          className={`stepper-pill ${mobileStep === 3 ? 'active' : ''} ${fullName && phone ? 'done' : ''}`}
-          onClick={() => setMobileStep(3)}
-        >
-          <span className="step-num">3</span>
-          <span>Coordonnées</span>
-        </button>
-      </div>
-
-      <form onSubmit={handleSubmit} className="proposal-form-master">
-        <div className="proposal-grid-master">
+      <form onSubmit={handleSubmit} className="sylla-main-form">
+        <div className="sylla-grid-2col">
           {/* ========================================================
-              COLONNE 1 : Catégorie + Coordonnées (Visible sur desktop ou steps 1/3 mobile)
+              COLONNE GAUCHE (environ 40%) :
+              - Badge de présentation
+              - Titre principal
+              - Description courte
+              - Étape 1 : Type de collaboration (grille 3 cols x 2 lignes)
               ======================================================== */}
-          <div className="proposal-col proposal-col-left">
-            {/* Étape 1 : Choix de catégorie */}
-            <div className={`proposal-card-compact ${mobileStep !== 1 ? 'mobile-hidden-step' : ''}`}>
-              <div className="card-title-compact">
-                <span className="step-tag">1</span>
-                <strong>Type de collaboration</strong>
+          <div className="sylla-col-left">
+            {/* Hero / Intro */}
+            <div className="sylla-hero-block">
+              <div className="hero-pill">
+                <Sparkles size={14} />
+                <span>Écosystème Sylla • Collaborations Directes</span>
+              </div>
+              <h1 className="hero-title-main">
+                Proposez votre projet de <span className="hero-title-highlight">collaboration</span>
+              </h1>
+              <p className="hero-desc-main">
+                Publicité, partenariat de marque, sponsoring ou événement : soumettez votre demande en quelques secondes par message vocal ou écrit.
+              </p>
+            </div>
+
+            {/* Étape 1 : Type de collaboration */}
+            <div className="sylla-card sylla-card-step1">
+              <div className="sylla-card-header">
+                <span className="step-badge">1</span>
+                <div>
+                  <h2 className="step-title">Type de collaboration</h2>
+                  <p className="step-subtitle">Sélectionnez la catégorie qui correspond le mieux à votre proposition</p>
+                </div>
               </div>
 
-              <div className="category-grid-compact" role="radiogroup" aria-label="Type de collaboration">
+              <div className="category-grid-desktop" role="radiogroup" aria-label="Type de collaboration">
                 {CATEGORIES.map((cat) => {
                   const isSelected = selectedCategory === cat.key;
                   return (
@@ -344,7 +277,7 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                       role="radio"
                       aria-checked={isSelected}
                       tabIndex={0}
-                      className={`category-card-compact ${isSelected ? 'selected' : ''}`}
+                      className={`category-card-desktop ${isSelected ? 'selected' : ''}`}
                       onClick={() => setSelectedCategory(cat.key)}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -354,179 +287,126 @@ export const SubmitPage: FC<SubmitPageProps> = ({ onGoToTrack }) => {
                       }}
                     >
                       {isSelected && (
-                        <div className="category-badge-check-compact" aria-hidden="true">
-                          <Check size={10} strokeWidth={3} />
+                        <div className="category-check-badge" aria-hidden="true">
+                          <Check size={12} strokeWidth={3} />
                         </div>
                       )}
-                      <div className="category-icon-compact">{cat.icon}</div>
-                      <div className="category-label-compact">{cat.label}</div>
+                      <div className="category-icon-desktop">{cat.icon}</div>
+                      <div className="category-label-desktop">{cat.label}</div>
                     </div>
                   );
                 })}
               </div>
+            </div>
+          </div>
 
-              {/* Bouton Suivant pour Mobile (Step 1 -> Step 2) */}
-              <div className="mobile-step-nav">
-                <button
-                  type="button"
-                  onClick={() => setMobileStep(2)}
-                  className="btn btn-primary btn-sm btn-block"
-                  style={{ marginTop: '0.65rem' }}
-                >
-                  <span>Continuer : Expliquer mon projet</span>
-                  <ChevronRight size={16} />
-                </button>
+          {/* ========================================================
+              COLONNE DROITE (environ 60%) :
+              - Étape 2 : Votre projet (Vocal + Texte)
+              - Étape 3 : Vos coordonnées
+              - Bouton d'action principal
+              ======================================================== */}
+          <div className="sylla-col-right">
+            {/* Étape 2 : Votre projet */}
+            <div className="sylla-card sylla-card-step2">
+              <div className="sylla-card-header">
+                <span className="step-badge">2</span>
+                <div>
+                  <h2 className="step-title">Votre projet</h2>
+                  <p className="step-subtitle">Enregistrement vocal immersif (recommandé et rapide) ou précisions écrites</p>
+                </div>
+              </div>
+
+              {/* Enregistreur vocal immersif */}
+              <AudioRecorder onAudioReady={handleAudioReady} maxSeconds={120} />
+
+              {/* Champ texte pour précisions écrites */}
+              <div className="form-group-note">
+                <label className="field-label">
+                  Précisions écrites <span className="field-optional">(facultatif si vous avez envoyé un vocal)</span>
+                </label>
+                <textarea
+                  className="field-textarea"
+                  rows={2}
+                  placeholder="Décrivez votre idée, vos objectifs, le budget envisagé ou toute information utile pour notre équipe..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
               </div>
             </div>
 
-            {/* Étape 3 : Coordonnées essentielles */}
-            <div className={`proposal-card-compact ${mobileStep !== 3 ? 'mobile-hidden-step' : ''}`}>
-              <div className="card-title-compact">
-                <span className="step-tag">3</span>
-                <strong>Vos coordonnées de contact</strong>
+            {/* Étape 3 : Vos coordonnées */}
+            <div className="sylla-card sylla-card-step3">
+              <div className="sylla-card-header">
+                <span className="step-badge">3</span>
+                <div>
+                  <h2 className="step-title">Vos coordonnées de contact</h2>
+                  <p className="step-subtitle">Ces informations permettront à la direction Sylla de vous recontacter directement</p>
+                </div>
               </div>
 
-              <div className="contact-grid-compact">
-                <div className="form-group-compact">
-                  <label className="form-label-compact">Nom complet *</label>
+              <div className="contact-grid-desktop">
+                <div className="field-group">
+                  <label className="field-label">Nom et Prénom *</label>
                   <input
                     type="text"
                     required
-                    className="form-input form-input-compact"
+                    className="field-input"
                     placeholder="Ex : Mariam Touré"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                   />
                 </div>
 
-                <div className="form-group-compact">
-                  <label className="form-label-compact">Téléphone / WhatsApp *</label>
+                <div className="field-group">
+                  <label className="field-label">Numéro Téléphone / WhatsApp *</label>
                   <input
                     type="tel"
                     required
-                    className="form-input form-input-compact"
+                    className="field-input"
                     placeholder="Ex : +221 77 000 00 00"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
 
-                <div className="form-group-compact">
-                  <label className="form-label-compact">
-                    Entreprise / Marque <span style={{ color: 'var(--sylla-gray-400)', fontWeight: 400 }}>(optionnel)</span>
+                <div className="field-group">
+                  <label className="field-label">
+                    Entreprise / Marque <span className="field-optional">(optionnel)</span>
                   </label>
                   <input
                     type="text"
-                    className="form-input form-input-compact"
-                    placeholder="Ex : Agence Digitale / Indépendant"
+                    className="field-input"
+                    placeholder="Ex : Agence, Marque, Indépendant..."
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                   />
                 </div>
               </div>
-
-              {/* Mobile : Bouton retour vers step 2 */}
-              <div className="mobile-step-nav mobile-step-nav-split">
-                <button
-                  type="button"
-                  onClick={() => setMobileStep(2)}
-                  className="btn btn-outline btn-sm"
-                >
-                  <ChevronLeft size={15} />
-                  <span>Modifier le vocal</span>
-                </button>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn btn-primary btn-sm"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <RefreshCw size={14} className="animate-spin" />
-                      <span>Envoi...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send size={14} />
-                      <span>Envoyer</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* ========================================================
-              COLONNE 2 : Message vocal + texte + validation (Visible sur desktop ou step 2 mobile)
-              ======================================================== */}
-          <div className={`proposal-col proposal-col-right ${mobileStep !== 2 ? 'mobile-hidden-step' : ''}`}>
-            {/* Étape 2 : Explication du projet (Vocal + Texte) */}
-            <div className="proposal-card-compact">
-              <div className="card-title-compact">
-                <span className="step-tag">2</span>
-                <strong>Votre projet (Vocal recommandé ou écrit)</strong>
-              </div>
-
-              {/* Enregistreur vocal */}
-              <AudioRecorder onAudioReady={handleAudioReady} maxSeconds={120} />
-
-              {/* Zone de texte facultative */}
-              <div className="form-group-compact" style={{ marginTop: '0.5rem' }}>
-                <label className="form-label-compact">
-                  Précisions écrites <span style={{ color: 'var(--sylla-gray-400)', fontWeight: 400 }}>(facultatif si vocal)</span>
-                </label>
-                <textarea
-                  className="form-textarea-compact"
-                  rows={2}
-                  placeholder="Objectifs, budget estimé, date souhaitée ou précisions utiles..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-
-              {/* Mobile : Boutons de navigation (Retour step 1 ou Continuer step 3) */}
-              <div className="mobile-step-nav mobile-step-nav-split">
-                <button
-                  type="button"
-                  onClick={() => setMobileStep(1)}
-                  className="btn btn-outline btn-sm"
-                >
-                  <ChevronLeft size={15} />
-                  <span>Catégories</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMobileStep(3)}
-                  className="btn btn-primary btn-sm"
-                >
-                  <span>Mes coordonnées</span>
-                  <ChevronRight size={15} />
-                </button>
-              </div>
             </div>
 
-            {/* Bouton d'action principal sur Desktop */}
-            <div className="desktop-submit-box">
+            {/* Bouton d'action principal */}
+            <div className="submit-action-row">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn btn-primary btn-submit-master"
+                className="btn btn-primary btn-submit-large"
               >
                 {isSubmitting ? (
                   <>
-                    <RefreshCw size={18} className="animate-spin" />
+                    <RefreshCw size={20} className="animate-spin" />
                     <span>Enregistrement sécurisé du dossier...</span>
                   </>
                 ) : (
                   <>
-                    <Send size={18} />
+                    <Send size={20} />
                     <span>Envoyer ma proposition</span>
                   </>
                 )}
               </button>
-              <div className="submit-footnote">
-                Code de suivi unique généré instantanément • Aucun mot de passe requis
-              </div>
+              <p className="submit-security-note">
+                Code unique de suivi généré instantanément • Aucun compte ni mot de passe requis
+              </p>
             </div>
           </div>
         </div>

@@ -109,7 +109,8 @@ export function App() {
       >
         <div
           style={{
-            maxWidth: 1140,
+            maxWidth: 'min(94%, 1520px)',
+            width: '100%',
             margin: '0 auto',
             display: 'flex',
             justifyContent: 'space-between',

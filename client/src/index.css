@@ -156,9 +156,10 @@ body {
 }
 
 .header-inner {
-  max-width: 1100px;
+  max-width: min(94%, 1520px);
+  width: 100%;
   margin: 0 auto;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -268,13 +269,13 @@ body {
 }
 
 /* ========================================================
-   EXPÉRIENCE PLEINE PAGE SANS SCROLL (SINGLE VIEWPORT)
+   STYLES UTILITAIRES POUR PAGE DE SUIVI (TrackPage)
    ======================================================== */
 .single-page-wrapper {
-  max-width: 1120px;
+  max-width: 960px;
   width: 100%;
   margin: 0 auto;
-  padding: 0.5rem 1rem 0.35rem;
+  padding: 1.25rem 1rem;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -282,171 +283,299 @@ body {
   z-index: 1;
 }
 
-.submit-hero-compact {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.hero-pill-compact {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.15rem 0.65rem;
-  border-radius: var(--radius-full);
-  background: var(--sylla-green-50);
-  color: var(--sylla-green-700);
-  font-size: 0.72rem;
-  font-weight: 700;
-  margin-bottom: 0.2rem;
-  border: 1px solid var(--sylla-green-100);
-  animation: heroFadeIn 0.3s var(--ease-out-smooth) both;
-}
-
 .submit-title-compact {
-  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
   font-weight: 800;
   color: var(--sylla-blue-900);
-  line-height: 1.15;
-  margin-bottom: 0.15rem;
+  line-height: 1.2;
+  margin-bottom: 0.35rem;
   letter-spacing: -0.4px;
 }
 
 .submit-desc-compact {
-  font-size: clamp(0.75rem, 1.4vw, 0.825rem);
+  font-size: clamp(0.85rem, 1.3vw, 0.95rem);
   color: var(--sylla-gray-500);
-  max-width: 580px;
+  max-width: 600px;
   margin: 0 auto;
-  line-height: 1.3;
-}
-
-/* Grille principale 2 colonnes sur Desktop */
-.proposal-form-master {
-  width: 100%;
-}
-
-.proposal-grid-master {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
-  align-items: stretch;
-}
-
-.proposal-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
+  line-height: 1.45;
 }
 
 .proposal-card-compact {
   background: var(--sylla-white);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--sylla-gray-200);
   box-shadow: var(--shadow-sm);
-  padding: 0.75rem 0.85rem;
+  padding: 1rem 1.25rem;
   transition: all 0.2s var(--ease-out-smooth);
 }
 
-.proposal-card-compact:hover {
-  border-color: rgba(203, 213, 225, 0.9);
-  box-shadow: var(--shadow-md);
-}
-
-.card-title-compact {
+.form-group-compact {
   display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin-bottom: 0.45rem;
-  font-size: 0.825rem;
-  color: var(--sylla-blue-900);
-  font-weight: 800;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
-.step-tag {
-  width: 19px;
-  height: 19px;
+.form-label-compact {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--sylla-gray-700);
+}
+
+.form-input-compact {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.9rem;
+  height: 42px;
+  border-radius: var(--radius-md);
+}
+
+/* ========================================================
+   REFACTORING UI — SYLLA COLLABORATIONS (OCCUPER TOUT L'ÉCRAN)
+   Structure 94% de largeur, 2 colonnes Desktop (40% / 60%)
+   ======================================================== */
+
+.sylla-layout-container {
+  width: min(94%, 1520px);
+  margin: 0 auto;
+  padding: clamp(0.75rem, 1.3vw, 1.25rem) clamp(0.5rem, 1vw, 1rem);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.sylla-main-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grille principale 2 colonnes Desktop : ~40% Gauche / ~60% Droite */
+.sylla-grid-2col {
+  display: grid;
+  grid-template-columns: 41% 1fr;
+  gap: clamp(1rem, 2vw, 1.85rem);
+  align-items: start;
+}
+
+/* Colonne Gauche (~40%) : Présentation & Type de collaboration */
+.sylla-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.65rem, 1vw, 0.95rem);
+  animation: fadeInColLeft 0.45s var(--ease-out-smooth) both;
+}
+
+/* Colonne Droite (~60%) : Projet (Audio+Texte), Coordonnées, Action */
+.sylla-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.65rem, 1vw, 0.95rem);
+  animation: fadeInColRight 0.45s var(--ease-out-smooth) 0.08s both;
+}
+
+@keyframes fadeInColLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInColRight {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hero & Présentation */
+.sylla-hero-block {
+  padding: 0.15rem 0.25rem 0.35rem;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.22rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: var(--sylla-green-50);
+  color: var(--sylla-green-700);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid var(--sylla-green-100);
+  margin-bottom: 0.4rem;
+  box-shadow: 0 1px 4px rgba(16, 185, 129, 0.08);
+}
+
+.hero-title-main {
+  font-size: clamp(1.35rem, 2.1vw, 1.95rem);
+  font-weight: 850;
+  color: var(--sylla-blue-900);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.35rem;
+}
+
+.hero-title-highlight {
+  background: linear-gradient(135deg, var(--sylla-blue-700) 0%, var(--sylla-green-600) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.hero-desc-main {
+  font-size: clamp(0.8rem, 1.05vw, 0.88rem);
+  color: var(--sylla-gray-600);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Cartes Globales Sylla */
+.sylla-card {
+  background: var(--sylla-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--sylla-gray-200);
+  box-shadow: 0 4px 14px -2px rgba(10, 31, 56, 0.05), 0 1px 3px rgba(10, 31, 56, 0.03);
+  padding: clamp(0.8rem, 1.25vw, 1.15rem);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sylla-card:hover {
+  border-color: rgba(203, 213, 225, 0.95);
+  box-shadow: 0 6px 20px -3px rgba(10, 31, 56, 0.08);
+}
+
+/* En-tête des étapes */
+.sylla-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: clamp(0.55rem, 0.9vw, 0.75rem);
+}
+
+.step-badge {
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
-  background: var(--sylla-blue-900);
+  background: linear-gradient(135deg, var(--sylla-blue-900) 0%, var(--sylla-blue-700) 100%);
   color: var(--sylla-white);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 800;
   flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(10, 31, 56, 0.2);
+  margin-top: 1px;
 }
 
-/* Grille des catégories compacte (3x2) */
-.category-grid-compact {
+.step-title {
+  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+  font-weight: 800;
+  color: var(--sylla-blue-900);
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.step-subtitle {
+  font-size: 0.75rem;
+  color: var(--sylla-gray-500);
+  line-height: 1.35;
+  margin-top: 0.15rem;
+  margin-bottom: 0;
+}
+
+/* ========================================================
+   SECTION 1 : CATÉGORIES (Grille 3 colonnes × 2 lignes)
+   ======================================================== */
+.category-grid-desktop {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.4rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.45rem, 0.75vw, 0.65rem);
 }
 
-.category-card-compact {
+.category-card-desktop {
   position: relative;
-  border: 1.5px solid var(--sylla-gray-200);
   background: var(--sylla-white);
-  border-radius: var(--radius-sm);
-  padding: 0.45rem 0.3rem;
+  border: 1.5px solid var(--sylla-gray-200);
+  border-radius: var(--radius-md);
+  padding: clamp(0.6rem, 0.9vw, 0.85rem) 0.4rem;
   text-align: center;
   cursor: pointer;
-  transition: all 0.18s var(--ease-out-smooth);
+  transition: all 0.2s var(--ease-out-smooth);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 0.35rem;
+  min-height: 76px;
   user-select: none;
   touch-action: manipulation;
   outline: none;
-  min-height: 52px;
 }
 
-.category-card-compact:hover {
+.category-card-desktop:hover {
   border-color: var(--sylla-blue-500);
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(10, 31, 56, 0.08);
+  box-shadow: 0 6px 14px rgba(10, 31, 56, 0.08);
 }
 
-.category-card-compact:active {
-  transform: scale(0.97);
+.category-card-desktop:active {
+  transform: scale(0.98);
 }
 
-.category-card-compact.selected {
+.category-card-desktop.selected {
   border-color: var(--sylla-green-500);
   background: linear-gradient(145deg, #f0fdf4 0%, #ecfdf5 100%);
-  box-shadow: 0 0 0 1.5px var(--sylla-green-500), 0 4px 12px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 0 2px var(--sylla-green-500), 0 6px 16px rgba(16, 185, 129, 0.16);
+  transform: translateY(-1px);
 }
 
-.category-icon-compact {
-  color: var(--sylla-blue-700);
+.category-icon-desktop {
+  font-size: 1.35rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--sylla-blue-700);
+  transition: transform 0.2s var(--ease-spring);
 }
 
-.category-card-compact.selected .category-icon-compact {
+.category-card-desktop:hover .category-icon-desktop {
+  transform: scale(1.08);
+}
+
+.category-card-desktop.selected .category-icon-desktop {
+  transform: scale(1.12);
   color: var(--sylla-green-600);
 }
 
-.category-label-compact {
-  font-size: 0.72rem;
+.category-label-desktop {
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--sylla-gray-800);
-  line-height: 1.1;
-  white-space: nowrap;
+  line-height: 1.15;
 }
 
-.category-card-compact.selected .category-label-compact {
-  color: var(--sylla-green-700);
+.category-card-desktop.selected .category-label-desktop {
+  color: var(--sylla-green-800);
 }
 
-.category-badge-check-compact {
+.category-check-badge {
   position: absolute;
-  top: 3px;
-  right: 3px;
-  width: 14px;
-  height: 14px;
+  top: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--sylla-green-600);
   color: var(--sylla-white);
@@ -456,178 +585,333 @@ body {
   animation: popIn 0.2s var(--ease-spring) both;
 }
 
-/* Grille de coordonnées compacte */
-.contact-grid-compact {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 0.45rem;
-}
-
-.form-group-compact {
+/* ========================================================
+   SECTION 2 & 3 : PROJET & COORDONNÉES
+   ======================================================== */
+.form-group-note {
+  margin-top: 0.55rem;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.25rem;
 }
 
-.form-label-compact {
-  font-size: 0.72rem;
+.field-label {
+  font-size: 0.76rem;
   font-weight: 700;
   color: var(--sylla-gray-700);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
 }
 
-.form-input-compact {
-  padding: 0.42rem 0.65rem;
-  font-size: 0.8rem;
-  height: 36px;
-  border-radius: var(--radius-sm);
+.field-optional {
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: var(--sylla-gray-400);
 }
 
-.form-textarea-compact {
+.field-textarea {
   width: 100%;
-  padding: 0.45rem 0.65rem;
-  font-size: 0.8rem;
-  border-radius: var(--radius-sm);
+  min-width: 0;
+  min-height: 52px;
+  max-height: 140px;
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-md);
   border: 1.5px solid var(--sylla-gray-300);
   background: var(--sylla-white);
+  font-size: 0.84rem;
   color: var(--sylla-gray-900);
-  resize: none;
-  height: 48px;
-  transition: all 0.2s ease;
-}
-
-.form-textarea-compact:focus {
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   outline: none;
-  border-color: var(--sylla-blue-700);
-  box-shadow: 0 0 0 3px rgba(10, 31, 56, 0.1);
+  box-sizing: border-box;
 }
 
-/* Boite de soumission desktop */
-.desktop-submit-box {
+.field-textarea:focus {
+  border-color: var(--sylla-green-500);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.16);
+}
+
+/* Grille des coordonnées responsive */
+.contact-grid-desktop {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.55rem, 0.9vw, 0.85rem);
+  align-items: start;
+}
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .contact-grid-desktop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-grid-desktop .field-group:last-child {
+    grid-column: span 2;
+  }
+}
+
+.field-group {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  margin-top: 0.15rem;
+  gap: 0.25rem;
+  min-width: 0;
 }
 
-.btn-submit-master {
+.field-input {
   width: 100%;
-  font-size: 0.95rem;
+  min-width: 0;
+  height: 40px;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--sylla-gray-300);
+  background: var(--sylla-white);
+  font-size: 0.86rem;
+  color: var(--sylla-gray-900);
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.field-input:focus {
+  border-color: var(--sylla-green-500);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.16);
+}
+
+/* ========================================================
+   BOUTON D'ACTION PRINCIPAL & CONFIRMATION
+   ======================================================== */
+.submit-action-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+}
+
+.btn-submit-large {
+  width: 100%;
+  min-height: 46px;
+  font-size: 1rem;
   font-weight: 800;
-  padding: 0.75rem 1.25rem;
+  letter-spacing: -0.2px;
+  padding: 0.75rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 14px rgba(10, 31, 56, 0.2);
+  gap: 0.65rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 5px 16px rgba(16, 185, 129, 0.26);
+  transition: all 0.2s var(--ease-out-smooth);
 }
 
-.submit-footnote {
+.btn-submit-large:hover {
+  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.38);
+  transform: translateY(-2px);
+}
+
+.btn-submit-large:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.submit-security-note {
   text-align: center;
   font-size: 0.72rem;
   color: var(--sylla-gray-500);
+  margin: 0;
 }
 
-/* Stepper pour Mobile */
-.mobile-stepper {
-  display: none;
+/* Vue Succès Complète */
+.success-card-master {
+  max-width: 680px;
+  width: 100%;
+  margin: 1.5rem auto;
+  background: var(--sylla-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--sylla-gray-200);
+  box-shadow: var(--shadow-lg);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  text-align: center;
+  animation: cardEnter 0.4s var(--ease-out-smooth) both;
 }
 
-.mobile-step-nav {
-  display: none;
+.success-icon-bubble {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sylla-green-500) 0%, var(--sylla-green-700) 100%);
+  color: var(--sylla-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+  animation: popIn 0.35s var(--ease-spring) both;
 }
 
-@media (max-width: 859px) {
-  .mobile-stepper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    background: var(--sylla-gray-100);
-    padding: 0.2rem 0.35rem;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--sylla-gray-200);
-    margin-bottom: 0.55rem;
-  }
+.success-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--sylla-blue-900);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.3px;
+}
 
-  .stepper-pill {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    padding: 0.35rem 0.45rem;
-    border-radius: var(--radius-full);
-    border: none;
-    background: transparent;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--sylla-gray-500);
-    cursor: pointer;
-    min-height: 38px;
-    transition: all 0.2s ease;
-  }
+.success-desc {
+  font-size: 0.95rem;
+  color: var(--sylla-gray-600);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
 
-  .stepper-pill.active {
-    background: var(--sylla-white);
-    color: var(--sylla-blue-900);
-    font-weight: 800;
-    box-shadow: var(--shadow-sm);
-  }
+.tracking-code-banner {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 1.5px dashed var(--sylla-green-500);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
 
-  .stepper-pill .step-num {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--sylla-gray-300);
-    color: var(--sylla-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.68rem;
-    font-weight: 800;
-  }
+.tracking-code-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--sylla-green-700);
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
 
-  .stepper-pill.active .step-num {
-    background: var(--sylla-green-600);
-  }
+.tracking-code-value {
+  font-family: monospace;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--sylla-blue-900);
+  letter-spacing: 2px;
+}
 
-  .stepper-pill.done .step-num {
-    background: var(--sylla-blue-900);
-  }
+.success-info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--sylla-blue-50);
+  border: 1px solid var(--sylla-blue-200);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--sylla-blue-900);
+  margin-bottom: 1.5rem;
+  line-height: 1.45;
+}
 
-  .stepper-arrow {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--sylla-gray-300);
-  }
+.success-actions-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 
-  .proposal-grid-master {
+.error-alert-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  animation: cardEnter 0.25s ease both;
+}
+
+/* ========================================================
+   RESPONSIVITÉ : TABLETTE & MOBILE
+   ======================================================== */
+
+/* Écrans moyens / Tablettes (768px à 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sylla-grid-2col {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
-  .mobile-hidden-step {
-    display: none !important;
+  .sylla-col-left,
+  .sylla-col-right {
+    animation: cardEnter 0.35s ease both;
   }
 
-  .mobile-step-nav {
-    display: flex;
-    margin-top: 0.65rem;
+  .category-grid-desktop {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .mobile-step-nav-split {
-    display: flex;
+  .contact-grid-desktop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-grid-desktop .field-group:last-child {
+    grid-column: span 2;
+  }
+}
+
+/* Écrans mobiles (< 768px) : Défilement vertical naturel & contrôles tactiles */
+@media (max-width: 767px) {
+  .sylla-layout-container {
+    width: 100%;
+    padding: 0.75rem 0.85rem 2.5rem;
+  }
+
+  .sylla-grid-2col {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .sylla-hero-block {
+    text-align: center;
+    margin-bottom: 0.4rem;
+  }
+
+  .sylla-col-left,
+  .sylla-col-right {
+    animation: cardEnter 0.35s ease both;
+  }
+
+  .category-grid-desktop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.5rem;
   }
 
-  .mobile-step-nav-split .btn {
-    flex: 1;
+  .category-card-desktop {
+    min-height: 72px;
+    padding: 0.65rem 0.4rem;
   }
 
-  .desktop-submit-box {
-    display: none;
+  .category-label-desktop {
+    font-size: 0.76rem;
+  }
+
+  .contact-grid-desktop {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .field-input {
+    height: 46px;
+    font-size: 16px; /* Empêche le zoom automatique sur iOS */
+  }
+
+  .btn-submit-large {
+    min-height: 50px;
+    font-size: 1rem;
   }
 }
+
 
 /* Main Content Layout */
 .main-content {
