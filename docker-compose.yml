@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: collab_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-collab_db}
+      POSTGRES_USER: ${POSTGRES_USER:-collab_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - collab_postgres_data:/var/lib/postgresql/data
+    networks:
+      - collab_internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-collab_user} -d ${POSTGRES_DB:-collab_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: collab_app
+    image: collab_app:latest
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5001
+      DATABASE_URL: postgresql://${POSTGRES_USER:-collab_user}:${POSTGRES_PASSWORD}@collab_postgres:5432/${POSTGRES_DB:-collab_db}?schema=public
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@sylla.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      CORS_ORIGIN: https://collab.syllavoyage.com
+    ports:
+      - "127.0.0.1:5001:5001"
+    volumes:
+      - collab_uploads:/app/server/uploads/audio
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - collab_internal
+
+networks:
+  collab_internal:
+    name: collab_internal
+    driver: bridge
+
+volumes:
+  collab_postgres_data:
+    name: collab_postgres_data
+  collab_uploads:
+    name: collab_uploads

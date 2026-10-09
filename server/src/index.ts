@@ -89,9 +89,35 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
   });
 });
 
+// Initialisation de l'administrateur système si aucun compte n'existe
+async function ensureAdminExists() {
+  try {
+    const adminCount = await prisma.adminUser.count();
+    if (adminCount === 0) {
+      const email = process.env.ADMIN_EMAIL || 'admin@sylla.com';
+      const password = process.env.ADMIN_PASSWORD || 'admin_sylla_2026';
+      const bcrypt = (await import('bcryptjs')).default;
+      const salt = await bcrypt.genSalt(10);
+      const passwordHash = await bcrypt.hash(password, salt);
+      await prisma.adminUser.create({
+        data: {
+          email,
+          passwordHash,
+          fullName: 'Direction Sylla',
+          role: 'ADMIN',
+        },
+      });
+      console.log(`✅ Administrateur initial configuré avec succès : ${email}`);
+    }
+  } catch (adminErr) {
+    console.warn('Vérification du compte administrateur :', adminErr);
+  }
+}
+
 app.listen(PORT, () => {
   console.log(`🚀 Serveur Sylla Collaborations démarré avec succès sur le port ${PORT}`);
   console.log(`📡 URL API : http://localhost:${PORT}/api`);
+  ensureAdminExists();
 });
 
 export default app;
